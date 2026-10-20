@@ -1,0 +1,123 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    function isValidTimestamp(val) {
+      return val is timestamp && val <= request.time;
+    }
+
+    function isValidUserProfile(data) {
+      return data.userId is string &&
+             data.displayName is string &&
+             data.email is string &&
+             data.createdAt is timestamp &&
+             data.updatedAt is timestamp &&
+             data.updatedAt <= request.time;
+    }
+
+    function isValidTransaction(data) {
+      return data.userId is string &&
+             data.type in ['send', 'receive', 'buy', 'exchange', 'card_payment', 'fee'] &&
+             data.amount is number &&
+             data.amount > 0 &&
+             data.currency is string &&
+             data.status in ['created', 'pending', 'submitted', 'confirming', 'confirmed', 'failed', 'cancelled'] &&
+             data.createdAt is timestamp &&
+             data.updatedAt is timestamp &&
+             data.updatedAt <= request.time;
+    }
+
+    function isValidVirtualCard(data) {
+      return data.userId is string &&
+             data.cardHolder is string &&
+             data.last4 is string &&
+             data.status in ['active', 'frozen', 'pending'] &&
+             data.createdAt is timestamp &&
+             data.updatedAt is timestamp &&
+             data.updatedAt <= request.time;
+    }
+
+    function isValidNotification(data) {
+      return data.userId is string &&
+             data.title is string &&
+             data.body is string &&
+             data.type in ['transfer', 'security', 'order', 'system'] &&
+             data.read is bool &&
+             data.createdAt is timestamp &&
+             data.createdAt <= request.time;
+    }
+
+    function isValidConsentRecord(data) {
+      return data.userId is string &&
+             data.policyVersion is string &&
+             data.termsAccepted is bool &&
+             data.acceptedAt is timestamp &&
+             data.acceptedAt <= request.time;
+    }
+
+    match /users/{userId} {
+      allow read: if isOwner(userId);
+      allow create: if isOwner(userId) &&
+                       request.resource.data.userId == userId &&
+                       isValidUserProfile(request.resource.data);
+      allow update: if isOwner(userId) &&
+                       request.resource.data.userId == userId &&
+                       request.resource.data.createdAt == resource.data.createdAt &&
+                       isValidUserProfile(request.resource.data);
+      allow delete: if isOwner(userId);
+
+      match /transactions/{transactionId} {
+        allow read: if isOwner(userId);
+        allow create: if isOwner(userId) &&
+                         request.resource.data.userId == userId &&
+                         isValidTransaction(request.resource.data);
+        allow update: if isOwner(userId) &&
+                         request.resource.data.userId == userId &&
+                         request.resource.data.createdAt == resource.data.createdAt &&
+                         isValidTransaction(request.resource.data);
+        allow delete: if isOwner(userId);
+      }
+
+      match /cards/{cardId} {
+        allow read: if isOwner(userId);
+        allow create: if isOwner(userId) &&
+                         request.resource.data.userId == userId &&
+                         isValidVirtualCard(request.resource.data);
+        allow update: if isOwner(userId) &&
+                         request.resource.data.userId == userId &&
+                         request.resource.data.createdAt == resource.data.createdAt &&
+                         isValidVirtualCard(request.resource.data);
+        allow delete: if isOwner(userId);
+      }
+
+      match /notifications/{notificationId} {
+        allow read: if isOwner(userId);
+        allow create: if isOwner(userId) &&
+                         request.resource.data.userId == userId &&
+                         isValidNotification(request.resource.data);
+        allow update: if isOwner(userId) &&
+                         request.resource.data.userId == userId &&
+                         request.resource.data.createdAt == resource.data.createdAt &&
+                         isValidNotification(request.resource.data);
+        allow delete: if isOwner(userId);
+      }
+
+      match /consent_records/{consentId} {
+        allow read: if isOwner(userId);
+        allow create: if isOwner(userId) &&
+                         request.resource.data.userId == userId &&
+                         isValidConsentRecord(request.resource.data);
+        allow update: if false; // Audit records are immutable once written
+        allow delete: if false; // Retained for compliance
+      }
+    }
+  }
+}

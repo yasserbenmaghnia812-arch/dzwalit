@@ -1,0 +1,6 @@
+{
+  "name": "DZ Wallet",
+  "description": "تطبيق محفظة مالية حقيقية متكامل - USDT وبطاقات Visa وتحويلات مالية وامتثال كامل لحماية البيانات في الجزائر",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

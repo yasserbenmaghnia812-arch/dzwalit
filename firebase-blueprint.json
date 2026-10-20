@@ -1,0 +1,126 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User profile with KYC, settings, and preferences",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "displayName": { "type": "string" },
+        "email": { "type": "string" },
+        "phoneNumber": { "type": "string" },
+        "kycStatus": { "type": "string", "enum": ["not_verified", "in_review", "verified", "rejected"] },
+        "kycRejectionReason": { "type": "string" },
+        "biometricEnabled": { "type": "boolean" },
+        "twoFactorEnabled": { "type": "boolean" },
+        "pinEnabled": { "type": "boolean" },
+        "pinCode": { "type": "string" },
+        "privacyPolicyAccepted": { "type": "boolean" },
+        "privacyPolicyAcceptedAt": { "type": "string", "format": "date-time" },
+        "language": { "type": "string", "enum": ["ar", "fr"] },
+        "usdtBalance": { "type": "number" },
+        "btcBalance": { "type": "number" },
+        "dzdBalance": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "FieldValue.serverTimestamp()" },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "FieldValue.serverTimestamp()" }
+      },
+      "required": ["userId", "displayName", "email", "createdAt", "updatedAt"]
+    },
+    "Transaction": {
+      "title": "Transaction",
+      "description": "Financial transaction for USDT, card payments, swaps, or transfers",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "type": { "type": "string", "enum": ["send", "receive", "buy", "exchange", "card_payment", "fee"] },
+        "amount": { "type": "number" },
+        "currency": { "type": "string" },
+        "network": { "type": "string" },
+        "recipient": { "type": "string" },
+        "sender": { "type": "string" },
+        "txId": { "type": "string" },
+        "status": { "type": "string", "enum": ["created", "pending", "submitted", "confirming", "confirmed", "failed", "cancelled"] },
+        "fee": { "type": "number" },
+        "counterpartAmount": { "type": "number" },
+        "counterpartCurrency": { "type": "string" },
+        "note": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "FieldValue.serverTimestamp()" },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "FieldValue.serverTimestamp()" }
+      },
+      "required": ["userId", "type", "amount", "currency", "status", "createdAt", "updatedAt"]
+    },
+    "VirtualCard": {
+      "title": "VirtualCard",
+      "description": "Virtual VISA card details and controls",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "cardHolder": { "type": "string" },
+        "last4": { "type": "string" },
+        "cardType": { "type": "string" },
+        "status": { "type": "string", "enum": ["active", "frozen", "pending"] },
+        "spendingLimit": { "type": "number" },
+        "availableBalance": { "type": "number" },
+        "onlinePaymentEnabled": { "type": "boolean" },
+        "contactlessEnabled": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "FieldValue.serverTimestamp()" },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "FieldValue.serverTimestamp()" }
+      },
+      "required": ["userId", "cardHolder", "last4", "status", "createdAt", "updatedAt"]
+    },
+    "Notification": {
+      "title": "Notification",
+      "description": "User in-app notifications and alerts",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "title": { "type": "string" },
+        "body": { "type": "string" },
+        "type": { "type": "string", "enum": ["transfer", "security", "order", "system"] },
+        "read": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "FieldValue.serverTimestamp()" }
+      },
+      "required": ["userId", "title", "body", "type", "read", "createdAt"]
+    },
+    "ConsentRecord": {
+      "title": "ConsentRecord",
+      "description": "Audit record for privacy policy and law 07-18 consent",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "policyVersion": { "type": "string" },
+        "termsAccepted": { "type": "boolean" },
+        "acceptedAt": { "type": "string", "format": "date-time", "description": "FieldValue.serverTimestamp()" },
+        "ipAddress": { "type": "string" },
+        "deviceModel": { "type": "string" }
+      },
+      "required": ["userId", "policyVersion", "termsAccepted", "acceptedAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "User profile document"
+    },
+    "/users/{userId}/transactions/{transactionId}": {
+      "schema": "Transaction",
+      "description": "User transactions list"
+    },
+    "/users/{userId}/cards/{cardId}": {
+      "schema": "VirtualCard",
+      "description": "User virtual cards"
+    },
+    "/users/{userId}/notifications/{notificationId}": {
+      "schema": "Notification",
+      "description": "User notifications"
+    },
+    "/users/{userId}/consent_records/{consentId}": {
+      "schema": "ConsentRecord",
+      "description": "User legal consent logs"
+    }
+  }
+}
