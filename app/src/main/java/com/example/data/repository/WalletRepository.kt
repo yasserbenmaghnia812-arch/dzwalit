@@ -62,7 +62,7 @@ class WalletRepository(private val db: FirebaseFirestore) {
             val profile = hashMapOf(
                 "userId" to uid,
                 "displayName" to (user.displayName ?: "مستخدم DZ Wallet"),
-                "email" to (user.email ?: "user@dzwallet.app"),
+                "email" to (user.email ?: "dzwalit@gmail.com"),
                 "phoneNumber" to (user.phoneNumber ?: "+213 555 12 34 56"),
                 "kycStatus" to "verified",
                 "biometricEnabled" to true,

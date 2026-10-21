@@ -126,7 +126,7 @@ fun PrivacyPolicyScreen(viewModel: WalletViewModel) {
                             "• الحق في الاطلاع على المعطيات الشخصية والحصول على نسخة منها.\n" +
                             "• الحق في تصحيح أو تحيين أي معطيات غير دقيقة.\n" +
                             "• الحق في طلب الحذف والنسيان، مع مراعاة القوانين المالية التي تفرض حفظ سجل المعاملات المالية لمدد محددة قانونياً.\n" +
-                            "• ممارسة الحقوق مجانية عبر البريد الإلكتروني المخصص: privacy@dzwallet.app"
+                            "• ممارسة الحقوق مجانية عبر البريد الإلكتروني المخصص: dzwalit@gmail.com"
                 )
 
                 Spacer(modifier = Modifier.height(14.dp))
@@ -143,7 +143,7 @@ fun PrivacyPolicyScreen(viewModel: WalletViewModel) {
                 PolicySectionCard(
                     title = "5. الرابط المرجعي وقنوات التواصل",
                     content = "الرابط الرسمي لسياسة الخصوصية:\nhttps://www.dzwallet.app/privacy-policy\n\n" +
-                            "مسؤول معالجة وحماية المعطيات:\nالبريد: privacy@dzwallet.app\n" +
+                            "مسؤول معالجة وحماية المعطيات:\nالبريد: dzwalit@gmail.com\n" +
                             "العنوان: الجزائر العاصمة، الجمهورية الجزائرية الديمقراطية الشعبية."
                 )
 

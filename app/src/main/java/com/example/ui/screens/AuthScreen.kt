@@ -83,7 +83,7 @@ fun AuthScreen(viewModel: WalletViewModel) {
     val credentialManager = remember { CredentialManager.create(context) }
     val strings = viewModel.strings
 
-    var emailOrPhone by remember { mutableStateOf("ahmed@email.com") }
+    var emailOrPhone by remember { mutableStateOf("dzwalit@gmail.com") }
     var password by remember { mutableStateOf("••••••••") }
     var passwordVisible by remember { mutableStateOf(false) }
     var isSignUp by remember { mutableStateOf(false) }

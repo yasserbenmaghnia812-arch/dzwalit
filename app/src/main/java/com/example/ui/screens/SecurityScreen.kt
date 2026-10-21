@@ -229,7 +229,7 @@ fun SecurityScreen(viewModel: WalletViewModel) {
                         Text("• يحق لك تصحيح أو تحديث بياناتك.", color = DzTextSecondary, fontSize = 12.sp)
                         Text("• يحق لك طلب حذف الحساب مع مراعاة الاحتفاظ بالسجلات المالية المفروضة قانونياً.", color = DzTextSecondary, fontSize = 12.sp)
                         Spacer(modifier = Modifier.height(10.dp))
-                        Text("للتواصل مع مسؤول حماية البيانات: privacy@dzwallet.app", color = DzGreenIncome, fontSize = 11.sp, fontWeight = FontWeight.Bold)
+                        Text("للتواصل مع مسؤول حماية البيانات: dzwalit@gmail.com", color = DzGreenIncome, fontSize = 11.sp, fontWeight = FontWeight.Bold)
                     }
                 },
                 confirmButton = {

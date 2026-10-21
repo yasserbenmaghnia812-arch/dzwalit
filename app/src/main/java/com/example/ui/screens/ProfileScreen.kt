@@ -136,7 +136,7 @@ fun ProfileScreen(viewModel: WalletViewModel) {
                         )
                         Spacer(modifier = Modifier.height(2.dp))
                         Text(
-                            text = profile?.email ?: "ahmed@email.com",
+                            text = profile?.email ?: "dzwalit@gmail.com",
                             color = DzTextSecondary,
                             fontSize = 12.sp
                         )

@@ -70,7 +70,7 @@ fun SupportScreen(viewModel: WalletViewModel) {
     val faqItems = listOf(
         Pair("ما هي شبكات USDT المدعومة في التطبيق؟", "ندعم شبكة Tron (TRC-20) كشبكة أساسية منخفضة الرسوم (1 USDT)، مع دعم اختياري لشبكة Ethereum (ERC-20)."),
         Pair("كيف يتم تفعيل وإصدار بطاقة VISA الافتراضية؟", "تُصدر البطاقة فور استيفاء التحقق من الهوية (KYC) وتتيح الدفع المباشر عبر الإنترنت مع ربطها برصيد محفظتك."),
-        Pair("هل تطبقون القانون الجزائري 07-18 لحماية المعطيات؟", "نعم، نلتزم تماماً بالقانون 07-18 ولا نشارك بياناتك إطلاقاً مع أطراف غير مصرح لها، مع حقك الكامل في طلب الاطلاع أو الحذف عبر privacy@dzwallet.app."),
+        Pair("هل تطبقون القانون الجزائري 07-18 لحماية المعطيات؟", "نعم، نلتزم تماماً بالقانون 07-18 ولا نشارك بياناتك إطلاقاً مع أطراف غير مصرح لها، مع حقك الكامل في طلب الاطلاع أو الحذف عبر dzwalit@gmail.com."),
         Pair("ماذا تفعل عند انقطاع الاتصال أثناء المعاملة؟", "يتحقق النظام أولاً من المعاملة عبر TxID على البلوك تشين لمنع أي ازدواجية أو خصم مضاعف للأموال.")
     )
 
@@ -172,7 +172,7 @@ fun SupportScreen(viewModel: WalletViewModel) {
                             .border(1.dp, DzCardBorder, RoundedCornerShape(14.dp))
                             .clickable {
                                 val intent = Intent(Intent.ACTION_SENDTO).apply {
-                                    data = Uri.parse("mailto:privacy@dzwallet.app")
+                                    data = Uri.parse("mailto:dzwalit@gmail.com")
                                     putExtra(Intent.EXTRA_SUBJECT, "DZ Wallet Support Request")
                                 }
                                 context.startActivity(intent)
@@ -192,7 +192,7 @@ fun SupportScreen(viewModel: WalletViewModel) {
                             Spacer(modifier = Modifier.width(12.dp))
                             Column {
                                 Text("البريد الإلكتروني للدعم والخصوصية", color = DzTextPrimary, fontSize = 13.sp, fontWeight = FontWeight.Bold)
-                                Text("privacy@dzwallet.app", color = DzTextSecondary, fontSize = 12.sp)
+                                Text("dzwalit@gmail.com", color = DzTextSecondary, fontSize = 12.sp)
                             }
                         }
                     }
