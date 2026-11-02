@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">DZ Wallet</string>
+    <string name="default_web_client_id" translatable="false">mock-client-id.apps.googleusercontent.com</string>
 </resources>
